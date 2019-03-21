@@ -16,12 +16,13 @@ public class FinancialRecord {
     private String description;
     private String mutation;
     private String comments;
+    private String category = "";
 
     public FinancialRecord() {
     }
 
     public FinancialRecord(LocalDate date, String account, String counterAccount, double amount,
-                           String description, String mutation, String comments) {
+                           String description, String mutation, String comments, String category) {
         this.date = date;
         this.account = account;
         this.counterAccount = counterAccount;
@@ -29,6 +30,7 @@ public class FinancialRecord {
         this.description = description;
         this.mutation = mutation;
         this.comments = comments;
+        this.category = category;
     }
 
     public static FinancialRecord toFinancialRecord(CSVRecord record) {
@@ -43,7 +45,8 @@ public class FinancialRecord {
                 amount,
                 record.get(INGParser.description),
                 record.get(INGParser.mutationKind),
-                record.get(INGParser.comments)
+                record.get(INGParser.comments),
+                "" //TODO: fix default category
         );
     }
 
@@ -82,6 +85,14 @@ public class FinancialRecord {
 
     public String getComments() {
         return comments;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     @Override
