@@ -99,6 +99,10 @@ public class FinancialRecordManager {
         return new FinancialRecordManager(parser.parse(fileLocation, skipHeaders));
     }
 
+    public static FinancialRecordManager fromString(String fileLocation) throws IOException {
+        return fromString(fileLocation, false);
+    }
+
     private FinancialRecordManager(List<FinancialRecord> records) {
         this.records = records;
         this.recordsByYearAndMonth = getRecordsByYearAndMonth();
