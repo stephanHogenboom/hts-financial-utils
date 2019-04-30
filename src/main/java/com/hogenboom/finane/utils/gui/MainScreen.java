@@ -1,7 +1,10 @@
 package com.hogenboom.finane.utils.gui;
 
+import com.hogenboom.finane.utils.FinancialParser;
 import com.hogenboom.finane.utils.export.CSVExporter;
 import com.hogenboom.finane.utils.parser.ing.FinancialRecordManager;
+import com.hogenboom.finane.utils.parser.ing.INGParser;
+import com.hogenboom.finane.utils.parser.ing.SavedDataParser;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -42,7 +45,7 @@ public class MainScreen extends Application {
     importButton.setOnAction(e -> {
       File file = chooser.showOpenDialog(primaryStage);
       if (file != null) {
-        openFile(file, primaryStage);
+        openFile(file, primaryStage, new INGParser());
       }
     });
 
@@ -62,15 +65,15 @@ public class MainScreen extends Application {
     primaryStage.setTitle("Finance tools");
     primaryStage.show();
     if (Files.exists(dataFile)){
-      openFile(dataFile.toFile(), primaryStage);
+      openFile(dataFile.toFile(), primaryStage, new SavedDataParser());
     } else {
       managerLabel.setText("No datafile found");
     }
   }
 
-  private void openFile(File file, Stage primaryStage) {
+  private void openFile(File file, Stage primaryStage, FinancialParser parser) {
     try {
-      manager = FinancialRecordManager.fromString(file.toString(), true);
+      manager = FinancialRecordManager.fromStringAndParser(file.toString(), parser);
       managerLabel.setText(file.getName());
       dataTab.setContent(DataGrid.createTableView(manager));
       barTab.setContent(TotalPerMonthBarChart.createTotalPerMonth(manager));

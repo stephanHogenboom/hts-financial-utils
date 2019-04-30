@@ -1,5 +1,6 @@
 package com.hogenboom.finane.utils.parser.ing;
 
+import com.hogenboom.finane.utils.FinancialParser;
 import com.hogenboom.finane.utils.parser.ing.model.FinancialRecord;
 import com.hogenboom.finane.utils.parser.ing.model.MonthDetails;
 
@@ -94,13 +95,8 @@ public class FinancialRecordManager {
                 .collect(Collectors.toList());
     }
 
-    public static FinancialRecordManager fromString(String fileLocation, boolean skipHeaders) throws IOException {
-        INGParser parser = new INGParser();
-        return new FinancialRecordManager(parser.parse(fileLocation, skipHeaders));
-    }
-
-    public static FinancialRecordManager fromString(String fileLocation) throws IOException {
-        return fromString(fileLocation, false);
+    public static FinancialRecordManager fromStringAndParser(String fileLocation, FinancialParser parser)  throws IOException {
+        return new FinancialRecordManager(parser.parse(fileLocation, true));
     }
 
     private FinancialRecordManager(List<FinancialRecord> records) {

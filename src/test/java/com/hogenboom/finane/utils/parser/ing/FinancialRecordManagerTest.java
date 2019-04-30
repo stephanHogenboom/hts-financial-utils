@@ -42,7 +42,7 @@ public class FinancialRecordManagerTest {
             List<String> lines = createCSVLines();
             lines.forEach(pw::println);
         }
-        FinancialRecordManager manager = FinancialRecordManager.fromString(resourceFolder.resolve("file1.csv").toString(), true);
+        FinancialRecordManager manager = FinancialRecordManager.fromStringAndParser(resourceFolder.resolve("file1.csv").toString(), new INGParser());
         System.out.println(manager.getRecords());
     }
 

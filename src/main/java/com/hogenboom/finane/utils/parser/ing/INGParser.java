@@ -1,5 +1,6 @@
 package com.hogenboom.finane.utils.parser.ing;
 
+import com.hogenboom.finane.utils.FinancialParser;
 import com.hogenboom.finane.utils.parser.ing.model.FinancialRecord;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 import static java.nio.charset.Charset.defaultCharset;
 
 
-public class INGParser {
+public class INGParser implements FinancialParser {
     public static String date = "Datum";
     public static String description = "Naam / Omschrijving";
     public static String account = "Rekening";
@@ -51,12 +52,4 @@ public class INGParser {
         }
         return records;
     }
-
-    public static void main(String[] args) throws IOException {
-        FinancialRecordManager manager = FinancialRecordManager
-                .fromString("src/main/resources/Alle_rekeningen_01-01-2018_18-12-2018.csv", true);
-        Map<Month, List<FinancialRecord>> recordByMonth = manager.getRecordsByMonth();
-        recordByMonth.get(Month.JANUARY).forEach(System.out::println);
-    }
-
 }
