@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
+//Mainscreen of the application
 public class MainScreen extends Application {
 
     private TabPane rootLayout = new TabPane();
